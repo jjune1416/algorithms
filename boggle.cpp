@@ -55,8 +55,7 @@ int main()
 {
     //freopen("tc.txt", "r", stdin);
     int TC;
-    scanf("%d", &TC);
-    while(TC--)
+    scanf("%d", &TC);    while(TC--)
     {
         int numWord;
         for(int i = 0; i < GRID_SIZE ; i++)
