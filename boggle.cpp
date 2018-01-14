@@ -18,7 +18,7 @@ char grid[GRID_SIZE][GRID_SIZE+1];
 char word[MAX_WORD_SIZE + 1];
 
 const int dx[8] = {-1, 0, 1, 1, 1, 0, -1, -1};
-const int dy[8] = {-1, -1, -1, 0, 1, 1, 1, -1};
+const int dy[8] = {-1, -1, -1, 0, 1, 1, 1, 0};
 
 void clearMemo()
 {
@@ -38,8 +38,8 @@ int findWord(int depth, char* word, int x, int y)
     if(word[depth] == 0)    return true;
     if(isOutOfRange(x, y)) return false;
     
-    if(gridVisited[x][y][depth])    return false;
-    gridVisited[x][y][depth] = true;
+    if(gridVisited[y][x][depth])    return false;
+    gridVisited[y][x][depth] = true;
     
     if(grid[y][x] != word[depth])   return false;
     
