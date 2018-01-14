@@ -22,11 +22,11 @@ const int indexY = 0;
 
 inline int getNextX(int x, int y)
 {
-    return ++x % (W );
+    return ++x % W;
 }
 inline int getNextY(int x, int y)
 {
-    return y + (++x / (W ));
+    return y + (++x / W );
 }
 
 bool isPossibleCover(int x, int y, int coverType)
@@ -65,6 +65,7 @@ inline void unCoverTiles(int x, int y, int coverType)
 
 int howManyAnswerDFS(int x, int y, int coverCount)
 {
+    if(coverNeeded % 3)             return 0;
     if(coverCount == coverNeeded)   return 1;
     if(y == H)                      return 0;
     int nextX = getNextX(x, y);
@@ -77,7 +78,7 @@ int howManyAnswerDFS(int x, int y, int coverCount)
     {
         if(!isPossibleCover(x, y, i))   continue;
         coverTiles(x, y, i);
-        ans += howManyAnswerDFS(nextX, nextY, coverCount + 1);
+        ans += howManyAnswerDFS(nextX, nextY, coverCount + 3);
         unCoverTiles(x, y, i);
     }
     
@@ -98,16 +99,7 @@ int main()
             for(int j = 0 ;j < W ; j++)
                 coverNeeded += (grid[i][j] == '.');
         
-        if(coverNeeded % 3)
-        {
-            printf("0\n");
-            continue;
-        }
-        else
-        {
-            coverNeeded /= 3;
-            printf("%d\n", howManyAnswerDFS(0, 0, 0));
-        }
+        printf("%d\n", howManyAnswerDFS(0, 0, 0));
     }
     return 0;
 }
