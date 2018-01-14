@@ -1,6 +1,6 @@
 //
 //  picnic.cpp
-//  picnic
+//  https://algospot.com/judge/problem/read/PICNIC
 //
 //  Created by Ghost on 2018. 1. 14..
 //  Copyright © 2018년 Ghost. All rights reserved.
