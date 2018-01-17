@@ -1,4 +1,4 @@
-//
+﻿//
 //  quadtree.cpp
 //  https://algospot.com/judge/problem/read/QUADTREE
 //
@@ -11,7 +11,6 @@
 
 std::string solve(int& index, std::string input)
 {
-    std::string output = "";
     if(input.at(index) != 'x')
         return input.substr(index++, 1);
     
@@ -24,14 +23,15 @@ std::string solve(int& index, std::string input)
     return "x" + thr + fou + fir + sec;
 }
 
-int main() {
+int main()
+{
     int TC;
     std::cin >> TC;
     while(TC--)
     {
+        int index = 0;
         std::string input;
         std::cin >> input;
-        int index = 0;
         std::cout << solve(index, input) << std::endl;
     }
     
