@@ -39,33 +39,15 @@ bool IsPossibleName(std::string fileName, int cardPivot, int filePivot)
     
     if(cardPivot == card.size())
     {
-        if(filePivot != fileName.size())
-            return ret = false;
-        return ret = true;
+        return ret = (filePivot == fileName.size());
     }
-    else if(filePivot == fileName.size() && card[cardPivot] != '*')
+
+    if(card[cardPivot] == '*')
     {
-        return ret = false;
+        ret = IsPossibleName(fileName, cardPivot + 1, filePivot)
+        || (filePivot < fileName.size() && IsPossibleName(fileName, cardPivot, filePivot + 1));
     }
-    
-    if(card[cardPivot] == '?')
-    {
-        ret = IsPossibleName(fileName, cardPivot + 1, filePivot + 1);
-    }
-    else if(card[cardPivot] == '*')
-    {
-        for(int i = filePivot; i <= fileName.size(); i++)
-        {
-            ret = false;
-            
-            if(IsPossibleName(fileName, cardPivot + 1, i))
-            {
-                ret = true;
-                break;
-            }
-        }
-    }
-    else if(card[cardPivot] == fileName[filePivot])
+    else if(card[cardPivot] == fileName[filePivot] || card[cardPivot] == '?')
     {
         ret = IsPossibleName(fileName, cardPivot + 1, filePivot + 1);
     }
