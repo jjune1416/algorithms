@@ -18,37 +18,29 @@ char c_fans[MAX_MEMBERS + 1];
 std::vector<int> i_members;
 std::vector<int> i_fans;
 
-std::vector<int> vectorAdd(const std::vector<int>& a, const std::vector<int>& b, int mult)
+void VectorAdd(std::vector<int>& a, const std::vector<int>& b, int mult)
 {
     int an = a.size();
     int bn = b.size();
-    int cn = std::max(an, bn + mult);
+    int new_an = std::max(an, bn + mult);
     
-    std::vector<int> c(a);
-    c.resize(cn);
+    a.resize(new_an);
     
     for(int i = 0 ;i <bn; i++)
-        c[mult + i] += b[i];
-    
-    //normalize;
-    
-    return c;
+        a[mult + i] += b[i];
 }
 
-std::vector<int> vectorSub(const std::vector<int>& a, const std::vector<int>& b)
+void VectorSub(std::vector<int>& a, const std::vector<int>& b)
 {
     int an = a.size();
     int bn = b.size();
     
-    std::vector<int> c(a);
-    c.resize(std::max(an, bn));
+    a.resize(std::max(an, bn));
     for(int i = 0 ;i < bn; i++)
-        c[i] -= b[i];
-    
-    return c;
+        a[i] -= b[i];
 }
 
-std::vector<int> generalMult(const std::vector<int>& a, const std::vector<int>& b)
+std::vector<int> GeneralMult(const std::vector<int>& a, const std::vector<int>& b)
 {
     std::vector<int> result;
     
@@ -63,16 +55,16 @@ std::vector<int> generalMult(const std::vector<int>& a, const std::vector<int>& 
     return result;
 }
 
-std::vector<int> karatsuba(const std::vector<int>& a, const std::vector<int>& b)
+std::vector<int> KaratsubaMult(const std::vector<int>& a, const std::vector<int>& b)
 {
     std::vector<int> result;
     
     int an = a.size();
     int bn = b.size();
     
-    if (an < bn)    karatsuba(b, a);
+    if (an < bn)    KaratsubaMult(b, a);
     if (an == 0 || bn == 0)     return result;
-    if (an < 50)                return generalMult(a,b);
+    if (an < 50)                return GeneralMult(a,b);
     
     int half = an >> 1;
     
@@ -81,19 +73,19 @@ std::vector<int> karatsuba(const std::vector<int>& a, const std::vector<int>& b)
     std::vector<int> b0(b.begin(), std::min(b.end(), b.begin() + half));
     std::vector<int> b1(std::min(b.end(), b.begin() + half), b.end());
     
-    std::vector<int> c0 = karatsuba(a0, b0);
-    std::vector<int> c2 = karatsuba(a1, b1);
+    std::vector<int> c0 = KaratsubaMult(a0, b0);
+    std::vector<int> c2 = KaratsubaMult(a1, b1);
     
-    std::vector<int> a2 = vectorAdd(a0, a1, 0);
-    std::vector<int> b2 = vectorAdd(b0, b1, 0);
+    VectorAdd(a0, a1, 0);
+    VectorAdd(b0, b1, 0);
     
-    std::vector<int> c1 = karatsuba(a2, b2);
-    c1 = vectorSub(c2, c0);
-    c1 = vectorSub(c2, c1);
+    std::vector<int> c1 = KaratsubaMult(a0, b0);
+    VectorSub(c1, c0);
+    VectorSub(c1, c2);
     
-    result = vectorAdd(result, c2, half * 2);
-    result = vectorAdd(result, c1, half);
-    result = vectorAdd(result, c0, 0);
+    VectorAdd(result, c2, half * 2);
+    VectorAdd(result, c1, half);
+    VectorAdd(result, c0, 0);
     
     return result;
 }
@@ -102,7 +94,7 @@ int HowManyHugs()
 {
     int fan_count = i_fans.size();
     int member_count = i_members.size();
-    std::vector<int> mult = karatsuba(i_fans, i_members);
+    std::vector<int> mult = KaratsubaMult(i_fans, i_members);
  
     int hug_count = 0;
     for(int i = member_count-1; i < fan_count; i++)
@@ -111,7 +103,7 @@ int HowManyHugs()
     return hug_count;
 }
 
-void input()
+void Input()
 {
     i_fans.clear();
     i_members.clear();
@@ -133,7 +125,7 @@ int main()
     std::cin >> TC;
     while(TC--)
     {
-        input();
+        Input();
         std::cout << HowManyHugs() << std::endl;
     }
     return 0;
