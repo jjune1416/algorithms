@@ -16,8 +16,31 @@ const int INF = 98654321;
 int numberCount;
 int qntCount;
 int numbers[MAX_NUM];
-
+int sums[MAX_NUM];
+int squares[MAX_NUM];
 int memo[MAX_QUAN + 1][MAX_NUM + 1];
+
+void PreCalc()
+{
+    for(int i = 0 ; i <= qntCount ; i++)
+        for(int j = 0 ; j <= numberCount ; j++)
+            memo[i][j] = -1;
+    std::sort(numbers, numbers + numberCount);
+    sums[0] = numbers[0];
+    for(int i = 1 ;i < numberCount ;i++)
+        sums[i] = sums[i-1] + numbers[i];
+    squares[0] = numbers[0] * numbers[0];
+    for(int i = 1 ; i < numberCount; i++)
+        squares[i] = squares[i-1] + numbers[i] * numbers[i];
+}
+
+int GetMinError(int i, int j)
+{
+    int sum = sums[j] - ((i==0) ? 0 : sums[i-1]);
+    int square = squares[j] - ((i==0) ? 0 : squares[i-1]);
+    int mean = (float)sum / (j - i + 1) + 0.5;
+    return square - 2 * sum * mean + mean * mean * (j - i + 1);
+}
 
 int Quantization(int numberIndex, int qntIndex)
 {
@@ -27,18 +50,9 @@ int Quantization(int numberIndex, int qntIndex)
     if(numberIndex == numberCount) return ret = 0;
 
     ret = INF;
-    int sum = 0;
     for(int i = numberIndex ; i < numberCount ; i++)
-    {
-        sum += numbers[i];
-        int qnt = (float)sum / (float)(i - numberIndex + 1) + 0.5;
-        
-        int squareOfErrors = 0;
-        for(int j = numberIndex ; j <= i ; j++)
-            squareOfErrors += (numbers[j] - qnt) * (numbers[j] - qnt);
-        
-        ret = std::min(squareOfErrors + Quantization(i + 1, qntIndex + 1), ret);
-    }
+        ret = std::min(GetMinError(numberIndex, i) + Quantization(i + 1, qntIndex + 1), ret);
+    
     return ret;
 }
 
@@ -51,10 +65,7 @@ int main()
         std::cin >> numberCount >> qntCount;
         for(int i = 0 ; i < numberCount; i++)
             std::cin >> numbers[i];
-        for(int i = 0 ; i <= qntCount ; i++)
-            for(int j = 0 ; j <= numberCount ; j++)
-                memo[i][j] = -1;
-        std::sort(numbers, numbers + numberCount);
+        PreCalc();
         std::cout << Quantization(0,0) << std::endl;
     }
     return 0;
