@@ -1,5 +1,5 @@
 //
-//  fanmeeting.cpp
+//  FanMeeting.cpp
 //  https://algospot.com/judge/problem/read/FANMEETING
 //
 //  Created by Ghost on 2018. 1. 21..
