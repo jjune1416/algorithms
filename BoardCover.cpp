@@ -1,5 +1,5 @@
 //
-//  boardcover.cpp
+//  BoardCover.cpp
 //  https://algospot.com/judge/problem/read/BOARDCOVER
 //
 //  Created by Ghost on 2018. 1. 14..
