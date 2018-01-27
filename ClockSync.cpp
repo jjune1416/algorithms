@@ -1,5 +1,5 @@
 //
-//  clock.cpp
+//  ClockSync.cpp
 //  https://algospot.com/judge/problem/read/CLOCKSYNC
 //
 //  Created by Ghost on 2018. 1. 15..
