@@ -24,16 +24,15 @@ bool Permutation1(std::string a, std::string b)
 bool Permutation2(std::string a, std::string b)
 {
     if(a.size() != b.size())    return false;
-    int aCnt[256] = {0,};
-    int bCnt[256] = {0,};
+    int cnt[256] = {0,};
     for(int i = 0 ;i < a.size(); i++)
     {
-        aCnt[a[i]]++;
-        bCnt[b[i]]++;
+        cnt[a[i]]++;
+        cnt[b[i]]--;
     }
     
     for(int i = 0 ;i < 256; i++)
-        if(aCnt[i] != bCnt[i])
+        if(cnt[i])
             return false;
     return true;
 }
