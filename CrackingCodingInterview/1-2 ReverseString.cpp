@@ -11,8 +11,8 @@
 void reverse(char* str)
 {
     int len = 0;
-    while(str[len++]);
-    len--;
+    while(str[len])
+        len++;
     char buf;
     for(int i = 0 ;i < len/2; i++)
     {
