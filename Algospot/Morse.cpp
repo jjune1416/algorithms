@@ -8,8 +8,10 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 const int MAX_MORSE = 101;
+const int MAX_BINO = 1000000000 + 100;
 
 int memo[MAX_MORSE][MAX_MORSE];
 
@@ -19,7 +21,7 @@ int HowManyMorse(int N, int M)
     int& ret = memo[N][M];
     if(ret != -1) return ret;
     if(N == 0 || M == 0)  return ret = 1;
-    return ret = HowManyMorse(N-1, M) + HowManyMorse(N, M-1);
+    return ret = std::min(MAX_BINO, HowManyMorse(N-1, M) + HowManyMorse(N, M-1));
 }
 
 std::string MakeMorse(int N, int M, int K)
