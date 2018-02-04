@@ -24,10 +24,7 @@ int HowManyMorse(int N, int M)
 
 std::string MakeMorse(int N, int M, int K)
 {
-    if(N == 0 && M == 0)    return "";
-    if(N == 0)  return "o" + MakeMorse(N, M - 1, K);
-    if(M == 0)  return "-" + MakeMorse(N - 1, M, K);
-    
+    if(N == 0)  return std::string(M, 'o');
     int sh = HowManyMorse(N - 1, M);
     if(sh > K)  return "-" + MakeMorse(N - 1, M, K);
     return "o" + MakeMorse(N, M - 1, K - sh);
