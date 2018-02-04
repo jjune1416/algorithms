@@ -12,6 +12,7 @@
 #include <vector>
 
 const int MAX_LEN = 501;
+const long long INF = 0x7FFFFFFF;
 
 int length;
 int arr[MAX_LEN];
@@ -31,27 +32,29 @@ bool operator<(const item_count& lhs, const item_count& rhs)
     return lhs.value < rhs.value;
 }
 
-int LIS(int pivot)
+int LIS(int index)
 {
-    int& ret = memoLIS[pivot];
+    if(index < 0 || index > length)     return 0;
+    int& ret = memoLIS[index];
     if(ret != -1) return ret;
     int max = 0;
-    for(int i = pivot + 1 ; i <= length ; i++)
-        if(arr[i] > arr[pivot])
+    for(int i = index + 1 ; i <= length ; i++)
+        if(arr[i] > arr[index])
             max = std::max(LIS(i), max);
     return ret = max + 1;
 }
 
-int HowManyLIS(int pivot)
+int HowManyLIS(int index)
 {
-    int& ret = memoCLIS[pivot];
+    if(index < 0 || index > length)     return 0;
+    int& ret = memoCLIS[index];
     if(ret != -1)   return ret;
-    if(LIS(pivot) == 1) return ret = 1;
+    if(LIS(index) == 1) return ret = 1;
     ret = 0;
     int max = 0;
-    for(int i = pivot + 1 ;i <= length ; i++)
+    for(int i = index + 1 ;i <= length ; i++)
     {
-        if(arr[i] > arr[pivot])
+        if(arr[i] > arr[index])
         {
             int buf = LIS(i);
             if (buf > max)
@@ -61,7 +64,7 @@ int HowManyLIS(int pivot)
             }
             else if(buf == max)
             {
-                ret += HowManyLIS(i);
+                ret = std::min<long long>(INF, (long long)ret +  HowManyLIS(i));
             }
         }
     }
@@ -78,12 +81,13 @@ std::string KLIS(int index, int lisLen, int k)
             counts.push_back(item_count(i, arr[i], HowManyLIS(i)));
     
     std::sort(counts.begin(), counts.end());
-    for(int next = 0 ;next < counts.size(); next++)
+    int next;
+    for(next = 0 ;next < counts.size(); next++)
     {
-        if(counts[next].count > k) return std::to_string(arr[index]) + " " + KLIS(counts[next].index, lisLen - 1, k);;
+        if(counts[next].count > k) break;
         k -= counts[next].count;
     }
-    return std::to_string(arr[index]);
+    return std::to_string(arr[index]) + " " + KLIS(counts[next].index, lisLen - 1, k);
 }
 
 int main()
