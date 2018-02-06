@@ -27,27 +27,24 @@ int GetLength(char c, int n)
     return ret = std::min(INF, 2 + GetLength('X', n + 1) + GetLength('Y', n + 1));
 }
 
-std::string GetString(std::string str, int n, int s, int l, int now)
+std::string GetString(std::string str, int n, int start, int last, int index)
 {
-    if(now > l) return "";
     if(n == N)
-        return str.substr(std::max(0, s-now), std::min((int)str.length(), l - now) - std::max(0, s-now));
+        return str.substr(std::max(0, start-index), std::min((int)str.length(), last - index) - std::max(0, start-index));
     
     std::string ret;
     for(int i = 0 ; i < str.length(); i++)
     {
         int len = GetLength(str.at(i), n);
-        
-        if(now + len > s && now < l)
+        if(index + len > start && index < last)
         {
             char c = str.at(i);
             if(c == '+' || c == '-' || c == 'F')
                 ret.push_back(c);
             else
-                ret += GetString((c == 'X' ? X : Y), n + 1, s, l , now);
+                ret += GetString((c == 'X' ? X : Y), n + 1, start, last , index);
         }
-        
-        now += len;
+        index += len;
     }
     return ret;
 }
