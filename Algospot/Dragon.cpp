@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <algorithm>
-#include <string.h>
+#include <cstring>
 
 int N, P, L;
 const std::string X = "X+YF";
