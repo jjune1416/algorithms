@@ -26,15 +26,6 @@ int GetDupleicatedLength(int indexLeft, int indexRight)
     std::string left = word[indexLeft];
     std::string right = word[indexRight];
     
-    /*
-    for(int pivot = 0 ; pivot + left.length() <= right.length(); pivot++)
-        if(left == right.substr(pivot, left.length()))
-            return ret = (int)left.length();
-    
-    if(right.find(left) != -1)
-        return ret = (int)left.length();
-     */
-    
     for(int dupLen = (int)(std::min(left.length(), right.length())); dupLen > 0 ; dupLen--)
         if(left.substr(left.length() - dupLen) == right.substr(0, dupLen))
             return ret = dupLen;
@@ -79,6 +70,15 @@ std::string GetShortestWord(int before, int bitMask)
             + GetShortestWord(index, bitMask | 1 << index);
 }
 
+int RemoveSubstr(int mask)
+{
+    for(int i = 1; i <= wordCount ; i++)
+        for(int j = 1; j <= wordCount ; j++)
+            if(i != j && word[i].find(word[j]) != -1 && !(word[i] == word[j] && i > j))
+                mask |= 1 << j;
+    return mask;
+}
+
 int main()
 {
     int TC;
@@ -91,12 +91,7 @@ int main()
         memset(memo, -1, sizeof(memo));
         memset(dupLength, -1, sizeof(dupLength));
         
-        int mask = 1;
-        for(int i = 1; i <= wordCount ; i++)
-            for(int j = 1; j <= wordCount ; j++)
-                if(i != j && word[i].find(word[j]) != -1 && !(word[i] == word[j] && i > j))
-                    mask |= 1 << j;
-        
+        int mask = RemoveSubstr(1);
         std::cout << GetShortestWord(0, mask) << std::endl;
     }
     return 0;
