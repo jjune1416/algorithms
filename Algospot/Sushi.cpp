@@ -12,7 +12,7 @@
 
 const int MAX_SUSHI = 20;
 
-int memo[10000001];
+int memo[2147483647 / 100 + 1];
 int sushiSize;
 int price[MAX_SUSHI];
 int priority[MAX_SUSHI];
