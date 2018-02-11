@@ -12,7 +12,7 @@
 const int GRID_SIZE = 3;
 char grid[GRID_SIZE][GRID_SIZE+1];
 
-char memo[2][20000];
+char memo[20000];
 
 char WhosTurn()
 {
@@ -67,7 +67,7 @@ int GetMemoIndex()
 
 char WhoIsWinner(int emptyCount, char turn)
 {
-    char& ret = memo[turn == 'o'][GetMemoIndex()];
+    char& ret = memo[GetMemoIndex()];
     if(ret != 0)    return ret;
     
     char winner = Winner();
