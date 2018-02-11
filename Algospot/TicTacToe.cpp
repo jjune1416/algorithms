@@ -55,12 +55,12 @@ char Winner()
 int GetMemoIndex()
 {
     int ret = 0;
-    for(int i = 0 ; i < 9 ;i ++)
+    for(int i = 0 ; i < 9 ;i++)
     {
-        int x = i % 3, y = i / 3;
         ret *= 3;
-        if(grid[y][x] == 'o')   ret += 2;
-        else if(grid[y][x] == 'x')   ret += 1;
+        int x = i % 3, y = i / 3;
+        if(grid[y][x] == 'o')       ret += 2;
+        else if(grid[y][x] == 'x')  ret += 1;
     }
     return ret;
 }
@@ -86,12 +86,10 @@ char WhoIsWinner(int emptyCount, char turn)
         char winner = WhoIsWinner(emptyCount - 1, opponent);
         grid[y][x] = '.';
         
-        if(winner == '.')   continue;
-        if(winner == turn)  return ret = turn;
-        opponentWinCount++;
+        if(winner == turn)          return ret = turn;
+        else if(winner == opponent) opponentWinCount++;
     }
-    if(opponentWinCount == emptyCount) ret = opponent;
-    return ret;
+    return ret = (opponentWinCount == emptyCount ? ret = opponent : ret);
 }
 
 int main()
