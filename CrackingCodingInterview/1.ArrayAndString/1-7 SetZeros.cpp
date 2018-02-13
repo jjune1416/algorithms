@@ -11,9 +11,9 @@
 
 #include<vector>
 
-std::vector<std::vector<int> > SetZeros(std::vector<std::vector<int> > arr)
+void SetZeros(std::vector< std::vector<int> > &arr)
 {
-    if(arr.empty()) return arr;
+    if(arr.empty()) return;
     
     int M = static_cast<int>(arr.size());
     int N = static_cast<int>(arr[0].size());
@@ -33,5 +33,4 @@ std::vector<std::vector<int> > SetZeros(std::vector<std::vector<int> > arr)
         for(int i = 0 ;i < M ;i++)
             arr[i][x] = 0;
     }
-    return arr;
 }
