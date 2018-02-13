@@ -11,8 +11,8 @@
 #include <algorithm>
 
 const int MAX_SUSHI = 20;
-
-int memo[2147483647 / 100 + 1];
+const int SIZE_MEMO = 201;
+int memo[SIZE_MEMO];
 int sushiSize;
 int price[MAX_SUSHI];
 int priority[MAX_SUSHI];
@@ -26,11 +26,11 @@ int GetMaxPriority(int budgit)
         for(int sushi = 0 ;sushi < sushiSize ;sushi ++)
         {
             if(price[sushi] > i) continue;
-            max = std::max(max, priority[sushi] + memo[i - price[sushi]]);
+            max = std::max(max, priority[sushi] + memo[(i - price[sushi]) % SIZE_MEMO]);
         }
-        memo[i] = max;
+        memo[i % SIZE_MEMO] = max;
     }
-    return memo[budgit];
+    return memo[budgit % SIZE_MEMO];
 }
 
 int main()
@@ -41,6 +41,7 @@ int main()
     {
         int budgit;
         std::cin >> sushiSize >> budgit;
+
         for(int i = 0 ;i < sushiSize ; i++)
             std::cin >>  price[i] >> priority[i];
         budgit /= 100;
