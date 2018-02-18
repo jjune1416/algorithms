@@ -16,10 +16,10 @@ struct LinkedListNode
     LinkedListNode* next;
 };
 
-void DeleteMiddleNode(LinkedListNode *node)
+bool DeleteMiddleNode(LinkedListNode *node)
 {
     // 예외 처리는 필수.
-    if(node == 0 || node -> next == 0)   return;
+    if(node == 0 || node -> next == 0)   return false;
     
     LinkedListNode* buf = node -> next;
     
@@ -27,4 +27,6 @@ void DeleteMiddleNode(LinkedListNode *node)
     node -> next = buf -> next;
     
     delete buf;
+    
+    return true;
 }
