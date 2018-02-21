@@ -4,7 +4,7 @@
 //
 //  하나의 배열을 사용해 세 개 스택을 구현하는 방법을 설명하라.
 //
-//  Created by Ghost on 2018. 2. 18..
+//  Created by Ghost on 2018. 2. 20..
 //  Copyright ⓒ 2018년 Ghost. All rights reserved.
 //
 
