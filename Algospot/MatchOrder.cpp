@@ -25,7 +25,7 @@ int GetMaxWins(int theirRatings[], int ourRatings[], int numberOfMatch)
 	int ret = 0;
 	while(theirPivot < numberOfMatch && ourPivot < numberOfMatch)
 	{
-		if(ourRatings[ourPivot] > theirRatings[theirPivot])
+		if(ourRatings[ourPivot] >= theirRatings[theirPivot])
 		{
 			ret++;
 			ourPivot++;
@@ -42,7 +42,7 @@ int main()
     while(TC--)
     {
 		int numberOfMatch;
-        std::cin >> numberOfMatch >> m;
+        std::cin >> numberOfMatch;
 		for(int i = 0 ; i < numberOfMatch ; i++)
 			std::cin >> theirRatings[i];
 		for(int i = 0 ; i < numberOfMatch ; i++)
