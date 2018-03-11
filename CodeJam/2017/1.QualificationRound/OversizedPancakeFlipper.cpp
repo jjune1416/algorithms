@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 
-inline void flip(std::string& pancakes, int index, int S)
+inline void Flip(std::string& pancakes, int index, int S)
 {
     while(S--)
     {
@@ -26,7 +26,7 @@ int FlipTimes(std::string pancakes, int S)
         if(pancakes[index] == '-')
         {
             times++;
-            flip(pancakes, index, S);
+            Flip(pancakes, index, S);
         }
     }
     
