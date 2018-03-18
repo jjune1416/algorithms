@@ -28,7 +28,7 @@ bool IsPossibleGap(int cameraCount, int spotCount, double mid)
 
 double GetMaximumGap(int cameraCount, int spotCount, double min, double max)
 {
-    if(max - min < 1e-3)    return min;
+    if(max - min < 1e-7)    return min;
     double mid = (min + max) / 2;
     if(IsPossibleGap(cameraCount, spotCount, mid))
         return GetMaximumGap(cameraCount, spotCount, mid, max);
