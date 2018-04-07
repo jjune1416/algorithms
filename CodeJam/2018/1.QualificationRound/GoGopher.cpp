@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include <string.h>
+#include <cstring>
 
 const int MAX = 1001;
 int arr[MAX][MAX];
@@ -54,10 +54,7 @@ int main(int argc, const char * argv[]) {
         int A;
         std::cin >> A;
         memset(arr, 0, sizeof(arr));
-        if(A == 20)
-            size = 5;
-        else
-            size = 15;
+        size = (A == 20) ? 5 : 15;
         GoGopher();
     }
     return 0;
