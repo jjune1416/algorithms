@@ -1,5 +1,5 @@
 //
-//  KthNumber.cpp
+//  thNumber.cpp
 //  1 - N 까지의 숫자를 쓴다.
 //  12345678910111213141516....9991000
 //  1. M 번째에 나오는 숫자는 무엇인가.
@@ -54,7 +54,7 @@ int MthNumberNew(long long int m)
     {
         if(count + NumberOfN(i) >= m)
         {
-            return (int)MthNumberNew(i, m - count);
+            return (int)MthNumberInSingle(i, m - count);
         }
         count += NumberOfN(i);
     }
@@ -69,7 +69,7 @@ int MthNumberOld(int m)
     {
         if(count + NumberOfN(i) >= m)
         {
-            return MthNumberNew(i, m - count);
+            return MthNumberInSingle(i, m - count);
         }
         count += NumberOfN(i);
     }
